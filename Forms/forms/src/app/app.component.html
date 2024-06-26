@@ -1,0 +1,215 @@
+{{ myUser | json }}
+
+<div class="container mt-4">
+  <form (ngSubmit)="onSubmit()" #myForm="ngForm" novalidate>
+    <h2>Template Driven form</h2>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="myUser.name"
+        #name="ngModel"
+        required
+        class="form-control"
+      />
+      <div *ngIf="name.invalid && name.touched" class="text-danger">
+        Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="myUser.email"
+        #email="ngModel"
+        required
+        email
+        class="form-control"
+      />
+      <div *ngIf="email.invalid && email.touched" class="text-danger">
+        <div *ngIf="email.errors?.['required']">Email is required.</div>
+        <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input
+        type="text"
+        id="phone"
+        name="phone"
+        [(ngModel)]="myUser.phone"
+        #phone="ngModel"
+        required
+        pattern="^[0-9]{10}$"
+        class="form-control"
+      />
+      <div *ngIf="phone.invalid && phone.touched" class="text-danger">
+        <div *ngIf="phone.errors?.['required']">Phone number is required.</div>
+        <div *ngIf="phone.errors?.['pattern']">
+          Phone number must be 10 digits.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Gender</label><br />
+      <div class="form-check form-check-inline">
+        <input
+          type="radio"
+          id="male"
+          name="gender"
+          value="male"
+          [(ngModel)]="myUser.gender"
+          #gender="ngModel"
+          required
+          class="form-check-input"
+        />
+        <label for="male" class="form-check-label">Male</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          type="radio"
+          id="female"
+          name="gender"
+          value="female"
+          [(ngModel)]="myUser.gender"
+          required
+          class="form-check-input"
+        />
+        <label for="female" class="form-check-label">Female</label>
+      </div>
+      <div *ngIf="gender.invalid && gender.touched" class="text-danger">
+        Gender is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country</label>
+      <select
+        id="country"
+        name="country"
+        [(ngModel)]="myUser.country"
+        #country="ngModel"
+        required
+        class="form-control"
+      >
+        <option value="">Select a country</option>
+        <option value="usa">USA</option>
+        <option value="canada">Canada</option>
+        <option value="uk">UK</option>
+      </select>
+      <div *ngIf="country.invalid && country.touched" class="text-danger">
+        Country is required.
+      </div>
+    </div>
+
+    <div class="form-group form-check">
+      <input
+        type="checkbox"
+        id="agree"
+        name="agree"
+        [(ngModel)]="myUser.agree"
+        #agree="ngModel"
+        required
+        class="form-check-input"
+      />
+      <label for="agree" class="form-check-label">Agree to terms</label>
+      <div *ngIf="agree.invalid && agree.touched" class="text-danger">
+        You must agree to the terms.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Skills</label><br />
+      <div *ngFor="let skill of skills" class="form-check form-check-inline">
+        <input
+          type="checkbox"
+          [id]="skill"
+          [value]="skill"
+          (change)="toggleSkill(skill)"
+          [checked]="myUser.selectedSkills.includes(skill)"
+          class="form-check-input"
+        />
+        <label [for]="skill" class="form-check-label">{{ skill }}</label>
+      </div>
+    </div>
+
+    <fieldset ngModelGroup="address" class="border p-3">
+      <legend>Address</legend>
+      <div class="form-group">
+        <label for="street">Street</label>
+        <input
+          type="text"
+          id="street"
+          name="street"
+          [(ngModel)]="myUser.address.street"
+          #street="ngModel"
+          required
+          class="form-control"
+        />
+        <div *ngIf="street.invalid && street.touched" class="text-danger">
+          Street is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          [(ngModel)]="myUser.address.city"
+          #city="ngModel"
+          required
+          class="form-control"
+        />
+        <div *ngIf="city.invalid && city.touched" class="text-danger">
+          City is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input
+          type="text"
+          id="state"
+          name="state"
+          [(ngModel)]="myUser.address.state"
+          #state="ngModel"
+          required
+          class="form-control"
+        />
+        <div *ngIf="state.invalid && state.touched" class="text-danger">
+          State is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="zip">Zip</label>
+        <input
+          type="text"
+          id="zip"
+          name="zip"
+          [(ngModel)]="myUser.address.zip"
+          #zip="ngModel"
+          required
+          class="form-control"
+        />
+        <div *ngIf="zip.invalid && zip.touched" class="text-danger">
+          Zip is required.
+        </div>
+      </div>
+    </fieldset>
+
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="myForm.invalid"
+    >
+      Submit
+    </button>
+  </form>
+</div>
