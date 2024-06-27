@@ -10,6 +10,7 @@ export class AppComponent {
   name: string = '';
   email: string = '';
   phone: string = '';
+  salary: string = '';
   gender: string = '';
   country: string = '';
   agree: boolean = false;

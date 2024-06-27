@@ -29,11 +29,12 @@
         #email="ngModel"
         required
         email
+        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
         class="form-control"
       />
       <div *ngIf="email.invalid && email.touched" class="text-danger">
         <div *ngIf="email.errors?.['required']">Email is required.</div>
-        <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+        <div *ngIf="email.errors?.['pattern']">Invalid email format.</div>
       </div>
     </div>
 
@@ -53,6 +54,45 @@
         <div *ngIf="phone.errors?.['required']">Phone number is required.</div>
         <div *ngIf="phone.errors?.['pattern']">
           Phone number must be 10 digits.
+        </div>
+      </div>
+    </div>
+    <!-- Description Field -->
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="myUser.description"
+        #description="ngModel"
+        required
+        class="form-control"
+      ></textarea>
+      <div
+        *ngIf="description.invalid && description.touched"
+        class="text-danger"
+      >
+        Description is required.
+      </div>
+    </div>
+
+    <!-- Currency Field -->
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input
+        type="text"
+        id="salary"
+        name="salary"
+        [(ngModel)]="myUser.salary"
+        #salary="ngModel"
+        required
+        pattern="^\d+(\.\d{1,2})?$"
+        class="form-control"
+      />
+      <div *ngIf="salary.invalid && salary.touched" class="text-danger">
+        <div *ngIf="salary.errors?.['required']">Salary is required.</div>
+        <div *ngIf="salary.errors?.['pattern']">
+          Salary must be a valid number with up to two decimal places.
         </div>
       </div>
     </div>
