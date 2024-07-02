@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "relativeforms": {
+    "lifeCycle": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/relativeforms",
+            "outputPath": "dist/life-cycle",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "relativeforms:build:production"
+              "buildTarget": "lifeCycle:build:production"
             },
             "development": {
-              "buildTarget": "relativeforms:build:development"
+              "buildTarget": "lifeCycle:build:development"
             }
           },
           "defaultConfiguration": "development"

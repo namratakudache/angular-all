@@ -1,0 +1,85 @@
+{{ myForm.value | json }}
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" />
+    <div *ngIf="myForm.get('name')?.invalid && myForm.get('name')?.touched">
+      Name is required and should be at least 3 characters long.
+    </div>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="text" id="email" formControlName="email" />
+    <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
+      <div *ngIf="myForm.get('email')?.errors?.['required']">
+        Email is required.
+      </div>
+      <div *ngIf="myForm.get('email')?.errors?.['email']">
+        Enter a valid email address.
+      </div>
+      <div *ngIf="myForm.get('email')?.errors?.['pattern']">
+        Email format is invalid.
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">password</label>
+    <input type="password" id="password" formControlName="password" />
+    <div
+      *ngIf="myForm.get('password')?.invalid && myForm.get('password')?.touched"
+    >
+      Password is required and should be at least 6 characters long.
+    </div>
+  </div>
+
+  <div>
+    <label for="country">Country</label>
+    <select id="country" formControlName="country">
+      <option value="">Select a country</option>
+      <option *ngFor="let country of countries" [value]="country">
+        {{ country }}
+      </option>
+    </select>
+    <div
+      *ngIf="myForm.get('country')?.invalid && myForm.get('country')?.touched"
+    >
+      Country is required.
+    </div>
+  </div>
+
+  <div>
+    <label>Interests</label>
+    <div formGroupName="interests">
+      <label><input type="checkbox" formControlName="reading" /> Reading</label>
+      <label
+        ><input type="checkbox" formControlName="traveling" /> Traveling</label
+      >
+      <label><input type="checkbox" formControlName="sports" /> Sports</label>
+    </div>
+  </div>
+
+  <div>
+    <label>Gender</label>
+    <div *ngFor="let gender of genders">
+      <label
+        ><input type="radio" [value]="gender" formControlName="gender" />
+        {{ gender }}</label
+      >
+    </div>
+    <div *ngIf="myForm.get('gender')?.invalid && myForm.get('gender')?.touched">
+      Gender is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="skills">Skills</label>
+    <select id="skills" formControlName="skills" multiple>
+      <option *ngFor="let skill of skills" [value]="skill">{{ skill }}</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit" [disabled]="myForm.invalid">Submit</button>
+  </div>
+</form>
